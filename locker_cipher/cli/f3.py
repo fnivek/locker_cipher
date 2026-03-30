@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import click
 
-from locker_cypher.ciphers.f3 import f3_cipher
+from locker_cipher.ciphers.f3 import f3_cipher
 
 
 @click.command()
