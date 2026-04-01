@@ -10,3 +10,7 @@ from locker_cipher.ciphers.f3 import f3_cipher
 def main(value: int) -> None:
     """Run the F3 cipher."""
     click.echo(f"F3: {value} --> {f3_cipher(value)}")
+
+
+if __name__ == "__main__":
+    main()

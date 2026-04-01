@@ -32,6 +32,10 @@
               python.pkgs.click
             ];
 
+            nativeCheckInputs = [
+              python.pkgs.pytest
+            ];
+
             installPhase = ''
               runHook preInstall
 
@@ -49,7 +53,7 @@
 
               cat > $out/bin/powerset-cipher <<EOF
               #!${python}/bin/python
-              from locker_cipher.cli.powerset import main
+              from locker_cipher.cli.powerset_cipher import main
               main()
               EOF
               chmod +x $out/bin/powerset-cipher
@@ -57,16 +61,12 @@
               runHook postInstall
             '';
 
-            nativeCheckInputs = [
-              python.pkgs.click
-            ];
-
             doCheck = true;
 
             checkPhase = ''
               runHook preCheck
-              ${python}/bin/python -c "from locker_cipher.ciphers.f3 import f3_cipher; assert f3_cipher(12) == 97"
-              $out/bin/f3 12 | grep 'F3: 12 --> 97'
+              export PYTHONPATH="$PWD''${PYTHONPATH:+:''$PYTHONPATH}"
+              pytest -q tests/
               runHook postCheck
             '';
 
@@ -105,7 +105,13 @@
             packages = [
               python
               python.pkgs.click
+              python.pkgs.pytest
             ];
+            shellHook = ''
+              export PYTHONPATH="$PWD''${PYTHONPATH:+:''$PYTHONPATH}"
+              alias f3='python -m locker_cipher.cli.f3'
+              alias powerset-cipher='python -m locker_cipher.cli.powerset'
+            '';
           };
         };
     };

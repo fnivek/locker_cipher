@@ -37,3 +37,7 @@ def main(cipher_name: str, values: tuple[int, ...]) -> None:
             total = sum(subset)
             result = cipher(total)
             click.echo(f"{cipher_name}: {format_subset(subset)} --> {result}")
+
+
+if __name__ == "__main__":
+    main()
