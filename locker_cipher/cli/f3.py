@@ -1,3 +1,8 @@
+"""CLI entry point for the F3 cipher.
+
+Encodes a single integer and prints the resulting ASCII code point.
+"""
+
 from __future__ import annotations
 
 import click

@@ -1,3 +1,9 @@
+"""CLI entry point for running any registered cipher over a powerset of inputs.
+
+Generates every non-empty subset of the provided locker numbers, sums each
+subset, and runs the chosen cipher on each sum.
+"""
+
 from __future__ import annotations
 
 from itertools import combinations
@@ -8,7 +14,11 @@ from locker_cipher.registry import CIPHERS
 
 
 def format_subset(values: tuple[int, ...]) -> str:
-    """Format a subset as a human-readable sum expression."""
+    """Return a human-readable label for a subset and its sum.
+
+    Single-element subsets render as just the number.  Multi-element subsets
+    render as ``a+b+c (total)``.
+    """
     return (
         "+".join(str(v) for v in values) + f" ({sum(values)})"
         if len(values) > 1
