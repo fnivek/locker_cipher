@@ -110,7 +110,7 @@
             shellHook = ''
               export PYTHONPATH="$PWD''${PYTHONPATH:+:''$PYTHONPATH}"
               alias f3='python -m locker_cipher.cli.f3'
-              alias powerset-cipher='python -m locker_cipher.cli.powerset'
+              alias powerset-cipher='python -m locker_cipher.cli.powerset_cipher'
             '';
           };
         };

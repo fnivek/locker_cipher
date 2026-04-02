@@ -10,7 +10,7 @@ from itertools import combinations
 
 import click
 
-from locker_cipher.registry import CIPHERS
+from locker_cipher.registry import get_cipher
 
 
 def format_subset(values: tuple[int, ...]) -> str:
@@ -35,18 +35,15 @@ def main(cipher_name: str, values: tuple[int, ...]) -> None:
         raise click.UsageError("Provide at least one integer input.")
 
     try:
-        cipher = CIPHERS[cipher_name]
+        cipher = get_cipher(cipher_name)
     except KeyError as exc:
-        valid = ", ".join(sorted(CIPHERS))
-        raise click.UsageError(
-            f"Unknown cipher '{cipher_name}'. Valid ciphers: {valid}"
-        ) from exc
+        raise click.UsageError(str(exc)) from exc
 
     for subset_size in range(1, len(values) + 1):
         for subset in combinations(values, subset_size):
             total = sum(subset)
             result = cipher(total)
-            click.echo(f"{cipher_name}: {format_subset(subset)} --> {result}")
+            click.echo(f"{cipher_name.upper()}: {format_subset(subset)} --> {result}")
 
 
 if __name__ == "__main__":
