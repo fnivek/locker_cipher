@@ -9,12 +9,14 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from locker_cipher.ciphers.f3 import f3_cipher
+from locker_cipher.ciphers.f4 import f4_cipher
 
 CipherFunc = Callable[[int], int]
 
 # Maps each cipher's public name (lowercase) to its callable implementation.
 CIPHERS: dict[str, CipherFunc] = {
     "f3": f3_cipher,
+    "f4": f4_cipher,
 }
 
 

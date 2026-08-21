@@ -34,6 +34,7 @@
 
             nativeCheckInputs = [
               python.pkgs.pytest
+              python.pkgs.matplotlib
             ];
 
             installPhase = ''
@@ -50,6 +51,13 @@
               main()
               EOF
               chmod +x $out/bin/f3
+
+              cat > $out/bin/f4 <<EOF
+              #!${python}/bin/python
+              from locker_cipher.cli.f4 import main
+              main()
+              EOF
+              chmod +x $out/bin/f4
 
               cat > $out/bin/powerset-cipher <<EOF
               #!${python}/bin/python
@@ -72,7 +80,7 @@
 
             meta = with pkgs.lib; {
               description = "Small modular cipher CLI tools";
-              mainProgram = "f3";
+              mainProgram = "f4";
               license = licenses.mit;
               platforms = platforms.unix;
             };
@@ -87,12 +95,17 @@
           apps = {
             default = {
               type = "app";
-              program = "${locker-cipher}/bin/f3";
+              program = "${locker-cipher}/bin/f4";
             };
 
             f3 = {
               type = "app";
               program = "${locker-cipher}/bin/f3";
+            };
+
+            f4 = {
+              type = "app";
+              program = "${locker-cipher}/bin/f4";
             };
 
             powerset-cipher = {
@@ -106,6 +119,7 @@
               python
               python.pkgs.click
               python.pkgs.pytest
+              python.pkgs.matplotlib
             ];
             shellHook = ''
               export PYTHONPATH="$PWD''${PYTHONPATH:+:''$PYTHONPATH}"
