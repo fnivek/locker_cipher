@@ -94,7 +94,7 @@ if __name__ == "__main__":
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    pts = [caduceus(i) for i in range(1001)]
+    pts = [tuple(round(x, 3) for x in caduceus(i)) for i in range(1001)]
     xs, ys = zip(*pts)
     fig, ax = plt.subplots(figsize=(4, 7))
     ax.plot(xs, ys, lw=2.2, color="#1b3a5c", marker=',')
@@ -120,4 +120,4 @@ def f4_cipher(value: int) -> tuple(int, int):
     Returns:
         The ASCII code point of the mapped character.
     """
-    return caduceus(value)
+    return tuple(round(x, 3) for x in caduceus(value))
